@@ -9,7 +9,6 @@ module DiffStat
       stat = nil
       additions = 0
       deletions = 0
-      modifications = 0
       @diff.each_line do |line|
         case line
         when /^\+{3} (.*?)\s+.*/
@@ -26,7 +25,7 @@ module DiffStat
           stat.additions += additions
           stat.deletions += deletions
           stat.modifications += modifications
-          additions, deletions, modifications = 0, 0, 0
+          additions, deletions = 0, 0
         when /^\+.*/
           additions += 1
         when /^\-.*/
