@@ -14,16 +14,13 @@ module DiffStat
         when /^\+{3} (.*?)\s+.*/
           stat = Stat.new
           stat.name = $1
-          previous = nil
           result << stat
         when /^\-{3} .*/
 
         when /^ .*/, /^\n$/, /^\r\n$/ #context line or EOF
           modifications = [additions, deletions].min
-          additions -= modifications
-          deletions -= modifications
-          stat.additions += additions
-          stat.deletions += deletions
+          stat.additions += additions - modifications
+          stat.deletions += deletions - modifications
           stat.modifications += modifications
           additions, deletions = 0, 0
         when /^\+.*/
