@@ -2,13 +2,12 @@ module DiffStat
   class Parser
     def initialize(diff)
       @diff = diff
+      @additions, @deletions = 0, 0
     end
 
     def parse
       result = []
       stat = nil
-      additions = 0
-      deletions = 0
       @diff.each_line do |line|
         case line
         when /^\+{3} (.*?)\s+.*/
@@ -18,18 +17,21 @@ module DiffStat
         when /^\-{3} .*/
 
         when /^ .*/, /^\n$/, /^\r\n$/ #context line or EOF
-          modifications = [additions, deletions].min
-          stat.additions += additions - modifications
-          stat.deletions += deletions - modifications
+          stat.additions += @additions - modifications
+          stat.deletions += @deletions - modifications
           stat.modifications += modifications
-          additions, deletions = 0, 0
+          @additions, @deletions = 0, 0
         when /^\+.*/
-          additions += 1
+          @additions += 1
         when /^\-.*/
-          deletions += 1
+          @deletions += 1
         end
       end
       result
+    end
+
+    def modifications
+      [@additions, @deletions].min
     end
   end
 
