@@ -19,15 +19,15 @@ module DiffStat
       end
 
       it "should have correct number of line additions" do
-        first.additions.should == 7
+        first.additions.should == 6
       end
 
       it "should have correct number of line deletions" do
-        first.deletions.should == 6
+        first.deletions.should == 5
       end
 
       it "should have correct number of line modifications" do
-        first.modifications.should == 2
+        first.modifications.should == 4
       end
     end
 
