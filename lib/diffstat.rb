@@ -10,7 +10,7 @@ module DiffStat
       previous = nil
       @diff.each_line do |line|
         case line
-        when /^\+{3} (.*) \(revision .*/
+        when /^\+{3} (.*?)\s+\(revision .*/
           stat = Stat.new
           stat.name = $1
           previous = nil
