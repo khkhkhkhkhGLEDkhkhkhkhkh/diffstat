@@ -1,4 +1,9 @@
 module DiffStat
+
+  def self.stat(diff)
+    Parser.new(diff).parse
+  end
+
   class Parser
     def initialize(diff)
       @diff = diff
