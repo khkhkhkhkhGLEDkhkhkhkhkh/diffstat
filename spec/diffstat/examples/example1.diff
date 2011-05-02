@@ -45,4 +45,15 @@ Index: example_file_2
 +This paragraph contains
 +important new additions
 +to this document.
-
+Index: example_file_3
+===================================================================
+--- example_file_3  (revision 10000)
++++ example_file_3  (revision 0)
+@@ -22,7 +23,3 @@
+ this paragraph needs to
+ be changed. Things can
+ be added after it.
+-
+-This paragraph contains
+-important new additions
+-to this document.

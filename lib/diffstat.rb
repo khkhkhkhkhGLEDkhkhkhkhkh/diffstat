@@ -16,23 +16,30 @@ module DiffStat
       @diff.each_line do |line|
         case line
         when /^\+{3} (.*?)\s+.*/
+          update(stat) if stat
+
           stat = Stat.new
           stat.name = $1
           result << stat
         when /^\-{3} .*/
 
         when /^ .*/, /^\n$/, /^\r\n$/ #context line or EOF
-          stat.additions += @additions - modifications
-          stat.deletions += @deletions - modifications
-          stat.modifications += modifications
-          @additions, @deletions = 0, 0
+          update(stat)
         when /^\+.*/
           @additions += 1
         when /^\-.*/
           @deletions += 1
         end
       end
+      update(stat)
       result
+    end
+
+    def update(stat)
+      stat.additions += @additions - modifications
+      stat.deletions += @deletions - modifications
+      stat.modifications += modifications
+      @additions, @deletions = 0, 0
     end
 
     def modifications

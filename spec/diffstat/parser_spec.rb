@@ -8,7 +8,7 @@ module DiffStat
     end
     
     it "should parse all files in diff" do
-      @stat.should have(2).items
+      @stat.should have(3).items
     end
 
     context "first file" do
@@ -48,6 +48,26 @@ module DiffStat
 
       it "should have correct number of line modifications" do
         second.modifications.should == 0
+      end
+    end
+
+    context "third file" do
+      let(:third) { @stat[2] }
+
+      it "should have correct name" do
+        third.name.should == 'example_file_3'
+      end
+
+      it "should have correct number of line additions" do
+        third.additions.should == 0
+      end
+
+      it "should have correct number of line deletions" do
+        third.deletions.should == 4
+      end
+
+      it "should have correct number of line modifications" do
+        third.modifications.should == 0
       end
     end
   end
