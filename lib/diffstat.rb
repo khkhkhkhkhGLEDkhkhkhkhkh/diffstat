@@ -35,15 +35,17 @@ module DiffStat
       result
     end
 
+    private 
+
+    def modifications
+      [@additions, @deletions].min
+    end
+
     def update(stat)
       stat.additions += @additions - modifications
       stat.deletions += @deletions - modifications
       stat.modifications += modifications
       @additions, @deletions = 0, 0
-    end
-
-    def modifications
-      [@additions, @deletions].min
     end
   end
 
